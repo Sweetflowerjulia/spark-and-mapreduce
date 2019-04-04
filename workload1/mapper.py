@@ -17,9 +17,9 @@ def mapper():
         category = line[3].strip()
         country = line[-1].strip()
         
-        value = video_id + "\t" + country
-        
-        print("{}\t{}".format(category, value))
+        if video_id !="" and category !="" and country !="":
+            value = video_id + "\t" + country
+            print("{}\t{}".format(category, value))
 
 if __name__ == "__main__":
     mapper()

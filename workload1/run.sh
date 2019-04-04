@@ -7,7 +7,7 @@ if [ $# -ne 2 ]; then
 fi
 
 hadoop jar /usr/lib/hadoop/hadoop-streaming-2.8.5-amzn-1.jar \
--D mapreduce.job.reduces=2 \
+-D mapreduce.job.reduces=1 \
 -D mapreduce.job.name='Category and Trending Correlation' \
 -file mapper.py \
 -mapper mapper.py \
