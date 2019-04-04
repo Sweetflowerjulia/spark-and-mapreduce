@@ -45,8 +45,8 @@ def reducer():
         
         for id, country_list in id_country.items():
             num_countries += len(country_list)
-            output = num_countries/len(id_country.keys())
-            print("{}\t{}".format(current_category, output))
+        output = num_countries/len(id_country.keys())
+        print("{}\t{}".format(current_category, output))
 
 if __name__ == "__main__":
     reducer()
