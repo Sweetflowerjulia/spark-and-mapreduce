@@ -17,6 +17,7 @@ def mapper():
         category = line[3].strip()
         country = line[-1].strip()
         
+        # header check
         if category != "category":
             value = video_id + "\t" + country
             print("{}\t{}".format(category, value))
