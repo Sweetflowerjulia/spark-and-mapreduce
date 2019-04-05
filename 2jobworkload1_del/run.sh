@@ -26,5 +26,5 @@ hadoop jar /usr/lib/hadoop/hadoop-streaming-2.8.5-amzn-1.jar \
 -mapper mapper_2.py \
 -file reducer_2.py \
 -reducer reducer_2.py \
--input outputfolder \
+-input outputfolder/ \
 -output $2
