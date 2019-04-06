@@ -2,7 +2,7 @@
 
 if [ $# -ne 2 ]; then
     echo "Invalid number of parameters!"
-    echo "Usage: ./driver.sh [input_location] [output_location]"
+    echo "Usage: ./run.sh [input_data_file] [output_location]"
     exit 1
 fi
 
