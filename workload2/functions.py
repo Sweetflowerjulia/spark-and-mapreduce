@@ -1,98 +1,58 @@
+# Workload2 - functions
 import csv
-"""
-This module includes a few functions used in computing average rating per genre
-"""
-def pairMovieToGenre(record):
-    """This function converts entries of movies.csv into key,value pair of the following format
-    (movieID, genre)
-    since there may be multiple genre per movie, this function returns a list of tuples
-    Args:
-        record (str): A row of CSV file, with three columns separated by comma
-    Returns:
-        The return value is a list of tuples, each tuple contains (movieID, genre)
-    """
-    for row in csv.reader([record]):
-        if len(row) != 3:
-            continue
-        movieID, genreList = row[0],row[2]
-        return [(movieID, genre) for genre in genreList.split("|")]
+from datetime import datetime
+
+'''
+This is the second code file of workload2, only functions inclued.
+Workload2 have two code files: 1. Top10_result.py  2. functions.py
+Please run the 'Top10_result.py' code file. 
+'''
 
 def extractColumns(data):
-    """ This function converts entries of ratings.csv into key,value pair of the following format
-    (movieID, rating)
-    Args:
-        record (str): A row of CSV file, with four columns separated by comma
-    Returns:
-        The return value is a tuple (movieID, genre)
+    """ This function converts entries of AllVideos_short.csv into key,value pair:
+    key: (video_id, country)
+    value: (trending_date,category, likes, dislikes)
     """
     try:
-        line = record.strip().split(",")
+        line = data.strip().split(",")
         video_id = line[0]
-        trending_date = line[1]
+        trending_date = datetime.strptime(line[1], '%y.%d.%m')
         category = line[3]
-        likes = line[6]
-        dislikes = line[7]
+        likes = int(line[6])
+        dislikes = int(line[7])
         country = line[-1]
-        key = (video_id, country)
-        value = (trending_date,category, likes, dislikes)
-#        key = "{}\t{}".format(video_id, country)
-#        value = "{}\t{}\t{}\t{}".format(trending_date,category, likes, dislikes)
-        return (key, value)
+        VideoId_Country = (video_id, country)
+        Values = (trending_date,category, likes, dislikes)
+        return (VideoId_Country, Values)
+
     except:
         return ()
 
-def mapToPair(line):
-    """ This function converts tuples of (genre, rating) into key,value pair of the following format
-    (genre,rating)
     
-    Args:
-        line (str): A touple of  (genre, rating) 
-    Returns:
-        The return value is a tuple  (genre, rating) 
+def sortByDate(video_list):
     """
-    genre, rating = line
-    return (genre, rating)
+    For each (video_id, country), sort the values by trending date.
+    Return (video_id, country) and sorted values of the first two trending dates. 
+    Only return values if the key-(video_id, country) contains at least two values.
+    """
+    VideoId_Country, TrendingList = video_list
 
-
-def mergeRating(accumulatedPair, currentRating):
-    """This funtion update a current  summary (ratingTotal, ratingCount) with a new rating value.
+    sortedByDate = sorted(TrendingList, key=lambda x:x[0], reverse=False)
+    if len(sortedByDate) >= 2 :    
+        return VideoId_Country, sortedByDate[:2]
     
-    Args:
-        accumulatedPair (tuple): a tuple of (ratingTotal, ratingCount)
-        currentRating (float):a new rating value, 
-    Returns:
-        The return value is an updated tuple of (ratingTotal, ratingCount)
+        
+def CalculateIncrease(trendings):
+    """
+    For each (VideoId, Country), calculate dislike growth value.
+    Return video_id, dislike growth value, category, country
+    """
+    (VideoId, Country), TrendingList = trendings
+    first_trending, second_trending = TrendingList
+    date_1, category_1, first_likes, first_dislikes = first_trending
+    date_2, category_2, second_likes, second_dislikes = second_trending
     
-    """
-    ratingTotal, ratingCount = accumulatedPair
-    ratingTotal += currentRating
-    ratingCount += 1
-    return (ratingTotal, ratingCount)
-
-
-def mergeCombiners(accumulatedPair1, accumulatedPair2):
-    """This function merges two intermedate summaries of the format (ratingTotal, ratingCount)
-  
-    Args:
-        accumulatedPair1 (tuple): a tuple of (ratingTotal, ratingCount)
-        accumulatedPair2 (fuple): a tuple of (ratingTotal, ratingCount) 
-    Returns:
-        The return value is an updated tuple of (ratingTotal, ratingCount)
-    """
-    ratingTotal1, ratingCount1 = accumulatedPair1
-    ratingTotal2, ratingCount2 = accumulatedPair2
-    return (ratingTotal1+ratingTotal2, ratingCount1+ratingCount2)
-
-
-def mapAverageRating(line):
-    """This function compute the average with a given sum and count for a genre
-    Args:
-        line (tuple): a tuple of (genre, (ratingTotal,ratingCount))
-    Returns:
-        The return value is a tuple of (genre, average_rating)
-    """
-
-    genre, ratingTotalCount = line
-    ratingAverage = ratingTotalCount[0]/ratingTotalCount[1]
-    return (genre, ratingAverage)
+    result = (second_dislikes-first_dislikes)-(second_likes-first_likes)
+    
+    return VideoId, result, category_1, Country
 
