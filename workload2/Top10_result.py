@@ -40,4 +40,3 @@ if __name__ == "__main__":
     TopTen = SortedResult.zipWithIndex().filter(lambda index:index[1]<10).keys()
     
     TopTen.saveAsTextFile(output_path)
-    

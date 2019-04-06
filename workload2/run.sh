@@ -6,8 +6,11 @@ if [ $# -ne 2 ]; then
     exit 1
 fi
 
+export PYSPARK_PYTHON=python3
 spark-submit \
-    --master local[4] \
-    Top10_result.py \
-    --input $1  \
+    --master yarn \
+    --deploy-mode cluster \
+    --num-executors 3 \
+    --py-files functions.py Top10_result.py \
+    --input $1 \
     --output $2

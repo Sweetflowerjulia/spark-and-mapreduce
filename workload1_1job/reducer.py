@@ -16,7 +16,8 @@ def reducer():
     
     data = read_map_output(sys.stdin)
     
-    for category, video_id, country in data:
+    for category, videoId_country in data:
+        video_id, country = videoId_country.strip().split(",")
         if current_category != category:
             
             if current_category != "":

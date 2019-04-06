@@ -17,10 +17,10 @@ def mapper():
         category = line[3].strip()
         country = line[-1].strip()
         
-        # header check
+        # Check and filter header
         if category != "category":
-            value = video_id + "\t" + country
-            print("{}\t{}".format(category, value))
+            videoId_country = video_id + "," + country
+            print("{}\t{}".format(category, videoId_country))
 
 if __name__ == "__main__":
     mapper()
