@@ -11,8 +11,10 @@ def read_map_2_output(file):
 """
 Second Job - Reducer
 The second reducer counts video_id by category (counts input by category),and sum up number of countries by category. Lastly, calculates average number of countries for each category.
-Input -  key: category, value: number of countries of each video id
-Output - key: category, value: average number of countries of each video id
+Input -  key: category,
+         value: number of countries for each video id, count 1 for video_id (for each input)
+Output - key: category,
+         value: average number of countries of each video id
 """
 
 def reducer_2():
@@ -21,28 +23,32 @@ def reducer_2():
     
     data = read_map_2_output(sys.stdin)
     
-    for category, num_countries in data:
+    for category, num_countries_count in data:
+        num_countries, count = num_countries_count.strip().split(",")
+        
         if current_category != category:
             
             # print output
             if current_category != "":
                 # average number of countries
-                avg = sum_countries/count
+                avg = SUM_Countries/Id_Count
                 print("{}\t{}".format(current_category, avg))
         
             # move to next category
             current_category = category
-            count = 0
-            sum_countries = 0
+            Id_Count = 0
+            SUM_Countries = 0
+            
         # count the input - number of video id
-        count += 1
+        Id_Count += int(count)
         # sum number of countries for each category
-        sum_countries += int(num_countries)
+        SUM_Countries += int(num_countries)
 
     # print last result out
     if current_category != "":
-        avg = sum_countries/count
+        avg = SUM_Countries/Id_Count
         print("{}\t{}".format(current_category, avg))
+
 
 if __name__ == "__main__":
     reducer_2()
