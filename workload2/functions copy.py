@@ -32,31 +32,25 @@ def extractColumns(data):
 def sortByDate(video_list):
     """
     For each (video_id, country), sort the values by trending date.
-    Input is VideoId_Country and TrendingList(trending date, category, likes, dislikes)
     Return (video_id, country) and sorted values of the first two trending dates. 
-    Only return results while the key-(video_id, country) contains at least two values.
+    Only return values if the key-(video_id, country) contains at least two values.
     """
     VideoId_Country, TrendingList = video_list
-    
-    # Sort by trending date
+
     sortedByDate = sorted(TrendingList, key=lambda x:x[0], reverse=False)
-    # Check trending dates have two records at leat
-    if len(sortedByDate) >= 2 :
-        # Drop trending date, only return category, likes, dislikes
-        Category_likes_dislikes_List = [i[1:] for i in sortedByDate]
-        return VideoId_Country, Category_likes_dislikes_List[:2]
+    if len(sortedByDate) >= 2 :    
+        return VideoId_Country, sortedByDate[:2]
     
         
 def CalculateIncrease(trendings):
     """
     For each (VideoId, Country), calculate dislike growth value.
-    Input is VideoId, Country and two trending records with category, likes and dislikes
     Return video_id, dislike growth value, category, country
     """
-    (VideoId, Country), Two_TrendingList = trendings
-    first_trending, second_trending = Two_TrendingList
-    category_1, first_likes, first_dislikes = first_trending
-    category_2, second_likes, second_dislikes = second_trending
+    (VideoId, Country), TrendingList = trendings
+    first_trending, second_trending = TrendingList
+    date_1, category_1, first_likes, first_dislikes = first_trending
+    date_2, category_2, second_likes, second_dislikes = second_trending
     
     result = (second_dislikes-first_dislikes)-(second_likes-first_likes)
     
