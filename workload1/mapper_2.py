@@ -20,7 +20,7 @@ def mapper_2():
     data = read_reducer_1_output(sys.stdin)
     
     for category, num_countries in data:
-        print("{}\t{}=1".format(category, num_countries))
+        print("{}\t{}".format(category, num_countries))
 
 if __name__ == "__main__":
     mapper_2()
