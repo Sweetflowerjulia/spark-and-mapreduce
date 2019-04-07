@@ -23,8 +23,8 @@ def reducer_2():
     
     data = read_map_2_output(sys.stdin)
     
-    for category, num_countries_count in data:
-        num_countries, count = num_countries_count.strip().split(",")
+    for category_count, num_countries in data:
+        category, count = category_count.strip().split("=")
         
         if current_category != category:
             

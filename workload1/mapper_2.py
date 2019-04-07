@@ -10,9 +10,9 @@ def read_reducer_1_output(file):
 
 """
 Second Job - Mapper
-Return category and num_countries
+Return category and num_countries pairs by category
 Input - key: category, value: number of countries for each video_id
-Output - key: category, value: number of countries for each video_id, and count 1
+Output - key: category, value: number of countries for each video_id
 """
 
 def mapper_2():
@@ -20,8 +20,8 @@ def mapper_2():
     data = read_reducer_1_output(sys.stdin)
     
     for category, num_countries in data:
-        value = "{},1".format(num_countries)
-        print("{}\t{}".format(category, value))
+        category_count = "{}=1".format(category)
+        print("{}\t{}".format(category_count, num_countries))
 
 if __name__ == "__main__":
     mapper_2()
