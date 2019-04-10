@@ -30,7 +30,7 @@ def reducer_2():
             # print output
             if current_category != "":
                 # average number of countries
-                avg = SUM_Countries/Id_Count
+                avg = round(SUM_Countries/Id_Count, 2)
                 print("{}\t{}".format(current_category, avg))
         
             # move to next category
@@ -45,7 +45,7 @@ def reducer_2():
 
     # print last result out
     if current_category != "":
-        avg = SUM_Countries/Id_Count
+        avg = round(SUM_Countries/Id_Count, 2)
         print("{}\t{}".format(current_category, avg))
 
 

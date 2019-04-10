@@ -59,7 +59,6 @@ def CalculateIncrease(trendings):
     category_2, second_likes, second_dislikes = second_trending
     
     result = (second_dislikes-first_dislikes)-(second_likes-first_likes)
-    result = round(result,2)
     
     return VideoId, result, category_1, Country
 
