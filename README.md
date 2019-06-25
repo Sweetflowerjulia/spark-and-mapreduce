@@ -1,23 +1,18 @@
-# Assignment 1
+# Dataset
+The dataset contains several months’ records of daily top trending YouTube video in the
+following ten countries: Canada,France, Germany, India,Japan, Mexico, Russia, South Korea,
+United Kingdom and United States of America. There are up to 200 trending videos
+listed per day.
 
-## Please refer the instruction below before run the code files:
+
+### Workload 1 Map Reduce
+Category and Trending Correlation
+
+### Workload 2 Spark 
+Controversial Trending Videos Identification
 
 #### EMR configuration: emr-5.21.0
 - Software configuration: select Hadoop 2.8.5 and Spark 2.4
-- Hardware configuration, select to use 1 master node and 4 core nodes
+- Hardware configuration, select to use 1 master node and 4 core nodes
 #### Packages need to be installed: csv, datetime
 #### Please put the data file in the hdfs home directory
-
-### Workload 1
-1. Go to the directly 'workload1'
-2. Run the code using following command: 
-$ sh run.sh AllVideos_short.csv output1
-
-Please check 'output1' for the workload 1 result.
-
-### Workload 2
-1. Go to the directory 'workload2'
-2. Run the code using following command: 
-$ sh run.sh AllVideos_short.csv output2
-
-Please check 'output2' for the workload 2 result.
